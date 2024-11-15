@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { reactive } from "vue";
-import { ICard } from "../types";
+import { computed, reactive } from "vue";
+import { EnumStates, ICard } from "../types";
 import Card from "./Card.vue";
 
 const props = defineProps<{
   cards: ICard[];
   yourTurn: boolean;
   onCardClick: (card: ICard, player: "player" | "rival") => void;
+  state: EnumStates
 }>();
+
+const isShuffling = computed(() => props.state === EnumStates.SHUFFLING);
+
 
 const isSelected = reactive({
   active: false,
@@ -42,7 +46,7 @@ const onLostFocus = () => {
 <template>
   <div class="inline-flex m-auto">
     <button
-      :disabled="!yourTurn"
+      :disabled="!yourTurn || isShuffling"
       type="button"
       @focusout="onLostFocus"
       @click="onSelectButton(index, card, 'player')"

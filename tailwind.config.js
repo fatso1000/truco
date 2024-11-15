@@ -2,6 +2,8 @@
 export default {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   darkMode: true,
-  themes: ["dark", "light", "cupcake"],
+  daisyui: {
+    themes: ["retro"],
+  },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
 };

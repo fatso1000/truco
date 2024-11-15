@@ -13,79 +13,92 @@ import CardHand from "../components/CardHand.vue";
 import Points from "../components/Points.vue";
 import Deck from "../components/Deck.vue";
 import PlayMenu from "../components/PlayMenu.vue";
+import { useAutoCloseAlert } from "../composables/useAutoCloseAlert";
+import Alert from "../components/Alert.vue";
+import ChatBubbleAlert from "../components/ChatBubbleAlert.vue";
 
-const tripleDrawCards: ICard[][] = [
-    [
-      { image: "", name: "card_1", value: 12 },
-      { image: "", name: "card_11", value: 12 },
-      { image: "", name: "card_12", value: 12 },
-    ],
-    [
-      { image: "", name: "card_13", value: 12 },
-      { image: "", name: "card_14", value: 12 },
-      { image: "", name: "card_15", value: 12 },
-    ],
-  ],
-  firstDrawCards: ICard[][] = [
-    [
-      { image: "", name: "card_12", value: 12 },
-      { image: "", name: "card_13", value: 12 },
-      { image: "", name: "card_14", value: 12 },
-    ],
-    [
-      { image: "", name: "card_12", value: 12 },
-      { image: "", name: "card_13", value: 5 },
-      { image: "", name: "card_14", value: 5 },
-    ],
-  ],
-  winLoseDrawCards: ICard[][] = [
-    [
-      { image: "", name: "card_12", value: 5 },
-      { image: "", name: "card_5", value: 12 },
-      { image: "", name: "card_14", value: 12 },
-    ],
-    [
-      { image: "", name: "card_12", value: 12 },
-      { image: "", name: "card_13", value: 5 },
-      { image: "", name: "card_14", value: 12 },
-    ],
-  ],
-  twoWinCards: ICard[][] = [
-    [
-      { image: "", name: "card_11", value: 12 },
-      { image: "", name: "card_12", value: 12 },
-      { image: "", name: "card_13", value: 12 },
-    ],
-    [
-      { image: "", name: "card_14", value: 5 },
-      { image: "", name: "card_15", value: 5 },
-      { image: "", name: "card_16", value: 5 },
-    ],
-  ],
-  twoDrawCards: ICard[][] = [
-    [
-      { image: "", name: "card_11", value: 12 },
-      { image: "", name: "card_12", value: 12 },
-      { image: "", name: "card_13", value: 12 },
-    ],
-    [
-      { image: "", name: "card_14", value: 12 },
-      { image: "", name: "card_15", value: 12 },
-      { image: "", name: "card_16", value: 5 },
-    ],
-  ],
-  winDrawCards: ICard[][] = [
-    [
-      { image: "", name: "card_11", value: 12 },
-      { image: "", name: "card_12", value: 12 },
-      { image: "", name: "card_13", value: 12 },
-    ],
-    [
-      { image: "", name: "card_14", value: 5 },
-      { image: "", name: "card_15", value: 12 },
-      { image: "", name: "card_16", value: 5 },
-    ],
-  ];
+const { triggerAlert, alertMessage, alertType, isAlertVisible } =
+  useAutoCloseAlert(); // Duration of 5 seconds
+
+const {
+  triggerAlert: triggerChatAlert,
+  alertMessage: chatAlertMessage,
+  alertType: chatAlertType,
+  isAlertVisible: chatIsAlertVisible,
+} = useAutoCloseAlert();
+
+// const tripleDrawCards: ICard[][] = [
+//     [
+//       { image: "", name: "card_1", value: 12 },
+//       { image: "", name: "card_11", value: 12 },
+//       { image: "", name: "card_12", value: 12 },
+//     ],
+//     [
+//       { image: "", name: "card_13", value: 12 },
+//       { image: "", name: "card_14", value: 12 },
+//       { image: "", name: "card_15", value: 12 },
+//     ],
+//   ],
+//   firstDrawCards: ICard[][] = [
+//     [
+//       { image: "", name: "card_12", value: 12 },
+//       { image: "", name: "card_13", value: 12 },
+//       { image: "", name: "card_14", value: 12 },
+//     ],
+//     [
+//       { image: "", name: "card_12", value: 12 },
+//       { image: "", name: "card_13", value: 5 },
+//       { image: "", name: "card_14", value: 5 },
+//     ],
+//   ],
+//   winLoseDrawCards: ICard[][] = [
+//     [
+//       { image: "", name: "card_12", value: 5 },
+//       { image: "", name: "card_5", value: 12 },
+//       { image: "", name: "card_14", value: 12 },
+//     ],
+//     [
+//       { image: "", name: "card_12", value: 12 },
+//       { image: "", name: "card_13", value: 5 },
+//       { image: "", name: "card_14", value: 12 },
+//     ],
+//   ],
+//   twoWinCards: ICard[][] = [
+//     [
+//       { image: "", name: "card_11", value: 12 },
+//       { image: "", name: "card_12", value: 12 },
+//       { image: "", name: "card_13", value: 12 },
+//     ],
+//     [
+//       { image: "", name: "card_14", value: 5 },
+//       { image: "", name: "card_15", value: 5 },
+//       { image: "", name: "card_16", value: 5 },
+//     ],
+//   ],
+//   twoDrawCards: ICard[][] = [
+//     [
+//       { image: "", name: "card_11", value: 12 },
+//       { image: "", name: "card_12", value: 12 },
+//       { image: "", name: "card_13", value: 12 },
+//     ],
+//     [
+//       { image: "", name: "card_14", value: 12 },
+//       { image: "", name: "card_15", value: 12 },
+//       { image: "", name: "card_16", value: 5 },
+//     ],
+//   ],
+//   winDrawCards: ICard[][] = [
+//     [
+//       { image: "", name: "card_11", value: 12 },
+//       { image: "", name: "card_12", value: 12 },
+//       { image: "", name: "card_13", value: 12 },
+//     ],
+//     [
+//       { image: "", name: "card_14", value: 5 },
+//       { image: "", name: "card_15", value: 12 },
+//       { image: "", name: "card_16", value: 5 },
+//     ],
+//   ];
 
 const meta: IMeta = reactive({
   deck: [],
@@ -141,11 +154,13 @@ onMounted(() => {
   meta.mano = isMano;
   yourTurn.value = isMano;
   if (!isMano) basicRivalPlay();
+  setAlert("Game Start!", "info");
 });
 
 function resetState() {
   state.value = EnumStates.SHUFFLING;
   setTimeout(() => {
+    setAlert("New round starting!", "info");
     const shuffledDeck = shuffleDeck(cards);
     const isMano = !meta.mano;
     const [playerCards, rivalCards] = getCardsFromDeck(shuffledDeck, isMano);
@@ -166,7 +181,7 @@ function resetState() {
     state.value = EnumStates.WAITING;
     trucoTurn.value = undefined;
     if (!isMano) basicRivalPlay();
-  }, 5000);
+  }, 4000);
 }
 
 const tripleDraw = () => roundMeta.draws.length === 3,
@@ -309,7 +324,7 @@ function matchPoints() {
 function basicRivalPlay(onlyPlay?: boolean) {
   setTimeout(() => {
     const shouldPlay = getRandomBoolean(),
-      lel: any[] = [
+      availableOptions: any[] = [
         TrucoActions.TRUCO,
         TrucoActions.RETRUCO,
         TrucoActions.VALE_CUATRO,
@@ -327,7 +342,7 @@ function basicRivalPlay(onlyPlay?: boolean) {
     }
 
     if (shouldPlay && !onlyPlay && trucoMeta.lastTrucoPlayer !== "player") {
-      onTrucoPlay(lel[answerNumber]);
+      onTrucoPlay(availableOptions[answerNumber]);
     } else {
       const cardToPlay = getRandomNumber(0, meta.rivalCards.length - 1);
       // const cardToPlay = 0;
@@ -401,6 +416,13 @@ function manageGame() {
 
     if (!match) {
       onFinishRound(winner);
+    } else {
+      setAlert(
+        winner === "player"
+          ? "You have won the round!"
+          : "You have lost the round!",
+        winner === "player" ? "success" : "error"
+      );
     }
   } else if (meta.turn === 0) {
     onFinishTurn();
@@ -458,8 +480,16 @@ function onTrucoPlay(
       const getTrucoRandom = getRandomNumber(0, trucoReply.length - 1);
       trucoMeta.level = TrucoActions.TRUCO;
 
+      console.log(
+        trucoTurn.value === "player" ||
+          Boolean(!trucoTurn.value && yourTurn.value),
+        trucoTurn.value,
+        yourTurn.value
+      );
+
       if (
-        !!(trucoTurn.value === "player" || (!trucoTurn.value && yourTurn.value))
+        trucoTurn.value === "player" ||
+        Boolean(!trucoTurn.value && yourTurn.value)
       ) {
         trucoTurn.value = "rival";
         if (trucoReply[getTrucoRandom] === TrucoActions.RETRUCO) {
@@ -480,10 +510,6 @@ function onTrucoPlay(
       if (
         !!(trucoTurn.value === "player" || (!trucoTurn.value && yourTurn.value))
       ) {
-        console.log(
-          retrucoReply[getRetrucoRandom] === TrucoActions.VALE_CUATRO,
-          TrucoActions.VALE_CUATRO
-        );
         trucoTurn.value = "rival";
         if (retrucoReply[getRetrucoRandom] === TrucoActions.VALE_CUATRO) {
           onTrucoPlay(TrucoActions.VALE_CUATRO);
@@ -510,9 +536,6 @@ function onTrucoPlay(
       }
 
       break;
-
-    default:
-      break;
   }
 }
 
@@ -529,9 +552,10 @@ function onTrucoReply(
         trucoMeta.points = 3;
       }
       // RETURN POINTS
-      if (yourTurn.value) {
+      if (trucoTurn.value === "player") {
         globalMeta.rivalWins = globalMeta.rivalWins + trucoMeta.points;
       } else {
+        setChatAlert("No se quiere :(", "error");
         globalMeta.playerWins = globalMeta.playerWins + trucoMeta.points;
       }
       resetState();
@@ -548,7 +572,12 @@ function onTrucoReply(
 
       trucoMeta.lastTrucoPlayer = trucoTurn.value;
 
-      if (!yourTurn.value) basicRivalPlay(true);
+      trucoTurn.value === "rival" &&
+        setChatAlert("Quiero truco! >:)", "success");
+
+      if (!yourTurn.value) {
+        basicRivalPlay(true);
+      }
 
       trucoTurn.value = undefined;
       state.value = EnumStates.WAITING;
@@ -556,10 +585,15 @@ function onTrucoReply(
 
     case TrucoActions.ENVIDO:
       break;
-
-    default:
-      break;
   }
+}
+
+function setChatAlert(message: string, type: "success" | "info" | "error") {
+  triggerChatAlert(message, type);
+}
+
+function setAlert(message: string, type: "success" | "info" | "error") {
+  triggerAlert(message, type);
 }
 </script>
 
@@ -575,15 +609,26 @@ function onTrucoReply(
           <button>Salir</button>
           <Points label="Me" :points="globalMeta.playerWins" />
           <Points label="Rival" :points="globalMeta.rivalWins" />
+          <button class="ml-auto">Surrender</button>
         </div>
       </div>
-      <div class="flex w-full h-60 z-0 relative">
+      <ChatBubbleAlert
+        :alert-message="chatAlertMessage"
+        :alert-type="chatAlertType"
+        :is-alert-visible="chatIsAlertVisible"
+      />
+      <Alert
+        :alert-message="alertMessage"
+        :alert-type="alertType"
+        :is-alert-visible="isAlertVisible"
+      />
+      <div class="flex w-full p-4 z-0 relative">
         <div v-if="meta.mano" class="absolute">
           <Deck />
         </div>
       </div>
       <div
-        class="absolute top-24 right-20 border bg-base-content flex flex-col gap-3 rounded-xl"
+        class="absolute p-2 opacity-0 hover:opacity-100 transition-all top-24 right-20 border bg-base-content flex flex-col gap-3 rounded-xl"
       >
         <span>round: {{ meta.round }}</span>
         <span>turn: {{ meta.turn }}</span>
@@ -603,6 +648,7 @@ function onTrucoReply(
         ></div>
         <div class="flex w-full h-80 z-0 relative">
           <CardHand
+            :state="state"
             :on-card-click="playCard"
             :cards="meta.playerCards"
             :your-turn="yourTurn"

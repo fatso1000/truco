@@ -64,3 +64,9 @@ export interface PlayMenuProps {
   trucoTurn: string | undefined;
   onMazo: () => void;
 }
+
+export interface AlertProps {
+  alertMessage: string;
+  alertType: string;
+  isAlertVisible: boolean;
+}

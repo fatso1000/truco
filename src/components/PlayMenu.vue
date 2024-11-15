@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { EnumStates, PlayMenuProps, TrucoActions } from "../types/index";
 
 const props = defineProps<PlayMenuProps>();
 
 const trucoName = ref(TrucoActions.TRUCO);
+const isShuffling = computed(() => props.state === EnumStates.SHUFFLING);
 const isTrucoDisabled = ref(false);
 
 watch(props.trucoMeta, (newTrucoMeta) => {
@@ -30,16 +31,16 @@ watch(props.trucoMeta, (newTrucoMeta) => {
           state === EnumStates.WAITING_RETRUCO ||
           state === EnumStates.WAITING_VALE_CUATRO)
       "
-      class="absolute bottom-12 inline-flex w-full text-base-content bg-base-300 rounded-md h-12"
+      class="absolute bottom-12 inline-flex w-full text-base-content rounded-md h-12"
     >
       <button
-        class="btn btn-ghost flex-1"
+        class="btn flex-1 btn-secondary font-bold"
         @click="onTrucoReply(TrucoActions.QUIERO)"
       >
         Quiero
       </button>
       <button
-        class="btn btn-ghost flex-1"
+        class="btn btn-primary flex-1 font-bold"
         @click="onTrucoReply(TrucoActions.NO_QUIERO)"
       >
         No Quiero
@@ -51,6 +52,7 @@ watch(props.trucoMeta, (newTrucoMeta) => {
       <button
         type="button"
         :disabled="
+          isShuffling ||
           isTrucoDisabled ||
           (trucoMeta.lastTrucoPlayer === 'rival' && trucoTurn !== 'player') ||
           (!!trucoTurn
@@ -73,7 +75,7 @@ watch(props.trucoMeta, (newTrucoMeta) => {
         type="button"
         class="btn btn-ghost flex-1"
         @click="onMazo"
-        :disabled="!yourTurn || state !== EnumStates.WAITING"
+        :disabled="isShuffling || !yourTurn || state !== EnumStates.WAITING"
       >
         Mazo
       </button>
