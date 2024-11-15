@@ -203,7 +203,7 @@ const cards = [
   },
 ].map((card) => ({
   ...card,
-  image: `../assets/cards/${card.name}.png`,
+  image: `/cards/${card.name}.png`,
 }));
 
 const cardsForPlayer = 3;

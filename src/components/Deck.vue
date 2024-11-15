@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ReversoImg from "../assets/cards/reverso.png";
+import ReversoImg from "/cards/reverso.png";
 </script>
 
 <template>
